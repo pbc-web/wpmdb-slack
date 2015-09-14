@@ -1,0 +1,17 @@
+{
+    "name": "poweredbycoffee/wp-migrate-db-pro-slack",
+    "description": "Slack Notifications for the WP Migrate DB Pro Slack plugin from Delicious Brains",
+    "authors": [
+        {
+            "name": "Stewart Ritchie",
+            "email": "stewart@poweredbycoffee.co.uk"
+        }
+    ],
+    "repositories":[{
+        "type": "vcs",
+        "url": "https://github.com/stewarty/slack-notifier"
+    }],
+    "require": {
+        "poweredbycoffee/slack-notifier": "0.2.*"
+    }
+}
