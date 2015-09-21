@@ -108,7 +108,7 @@ class Wp_Migrate_Db_Pro_Slack_Admin {
 	 */
 
 	public function check_parent_active(){
-		if(!is_plugin_active("wp-migrate-db-pro/wp-migrate-db-pro.php")){
+		if(!is_plugin_active("wp_migrate_db_pro/wp_migrate_db_pro.php")){
 			?>
 			 <div class="error">
 		        <p>WP Migrate DB Pro Needs To Be Active for Slack Notification to work.</p>
@@ -126,9 +126,9 @@ class Wp_Migrate_Db_Pro_Slack_Admin {
 	public function check_constants_set(){
 
 		$constants = array(
-			'MDBP_SLACK_TEAM',
+			//'MDBP_SLACK_TEAM',
 			'MDBP_SLACK_HOOK_URL',
-			'MDBP_SLACK_CHANNEL'
+			//'MDBP_SLACK_CHANNEL'
 		);
 
 		foreach ($constants as $cont) {
@@ -143,6 +143,12 @@ class Wp_Migrate_Db_Pro_Slack_Admin {
 			
 		}
 	}
+
+	/**
+	 * Send the update to Slack
+	 *
+	 * @since    1.0.0
+	 */
 
 	public function slack($text){
 
@@ -162,17 +168,41 @@ class Wp_Migrate_Db_Pro_Slack_Admin {
 			
 	}
 
+	/**
+	 * Action from Hook to initilize the migration notification
+	 *
+	 * @since    1.0.0
+	 */
+
 	public function migration_start(){
 		$this->slack($this->build_message("Started"));
 	}
+
+	/**
+	 * Action from Hook to finalize the migration notification
+	 *
+	 * @since    1.0.0
+	 */
 
 	public function migration_finish(){
 		$this->slack($this->build_message("Finshed"));
 	}
 
+	/**
+	 * Get the intent from WP-Migrate-DB-Pro
+	 *
+	 * @since    1.0.0
+	 */
+
 	private function get_intent(){
 		return $_POST['intent'];
 	}
+
+	/**
+	 * Construct a message that will be sent to Slack based in the intent, time, user
+	 *
+	 * @since    1.0.0
+	 */
 
 	private function build_message($stage){
 
